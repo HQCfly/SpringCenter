@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除页面</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/iconfont.css' %}">
+</head>
+<body>
+<form action="" method="post">
+    {% csrf_token %}
+
+    <button class="btn btn-default">确认删除？</button>
+    <button class="btn btn-default"><a href="{{ url }}">取消</a></button>
+
+
+</form>
+</body>
+</html>

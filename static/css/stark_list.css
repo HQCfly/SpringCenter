@@ -1,0 +1,8 @@
+.filter a {
+    text-decoration: none;
+    color: grey;
+}
+
+.active .btn btn-info {
+    background-color: rebeccapurple !important;
+}

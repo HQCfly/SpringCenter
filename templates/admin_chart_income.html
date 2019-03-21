@@ -1,0 +1,141 @@
+{# 继承模板 #}
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{#把这个页面塞到模版#}
+{% block page-main %}
+    <h1 class="page-header">清泉后台管理页面--收入可视化</h1>
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">收入可视化 <i class="fa fa-thumb-tack pull-right"></i></div>
+        <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-md-4">
+                    <div class="input-group">
+{#                        <input type="text" class="form-control" placeholder="Search for...">#}
+                        <span class="input-group-btn">
+{#                                    <button class="btn btn-default" type="button">搜索</button>#}
+                                </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-md-3 pull-right">
+{#                    <a href="/adminAddincome/" class="btn btn-success pull-right">新页面添加</a>#}
+{#                    <button class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">新增</button>#}
+                </div>
+
+            </div><!-- /.row -->
+
+            <div id="echart" style="width: 900px;height:600px;">
+
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echart'));
+        var ret={{ ret|safe }};
+        var jsday_income = []
+        var jstotall_income = []
+        var jstotall_bath = []
+        var jstotall_house = []
+        var jstotall_pay = []
+        var jstotall_store = []
+        var jstotallS_bath_house_store_other = []
+        var obj =JSON.parse(ret)
+{#        console.log(obj);#}
+        for(i in obj){
+            jsday_income.push(obj[i]['day_income'])
+        }
+        for(i in obj){
+            jstotall_income.push(obj[i]['total_income'])
+        }
+        for(i in obj){
+            jstotall_bath.push(obj[i]['total_bath'])
+        }
+        for(i in obj){
+            jstotall_house.push(obj[i]['total_house'])
+        }
+        for(i in obj){
+            jstotall_pay.push(obj[i]['total_pay'])
+        }
+        for(i in obj){
+            jstotall_store.push(obj[i]['total_store'])
+        }
+        for(i in obj){
+            jstotallS_bath_house_store_other.push(obj[i]['total_bath_house'])
+        }
+
+{#        console.log(jsdayIncome)#}
+{#        console.log(jstotallIncome)#}
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '每日收入可视化'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+
+            toolbox: {
+                show : true,
+                feature : {
+                    dataView : {show: true, readOnly: false},
+                    magicType : {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            xAxis: {
+                type:'category',
+                data: jsday_income
+            },
+            yAxis: {type : 'value'},
+            series: [{
+                name: '净收入',
+                type: 'bar',
+                data: jstotall_income
+            },
+            {
+                name: '住房收入',
+                type: 'bar',
+                data: jstotall_house
+            },
+            {
+                name: '洗浴收入',
+                type: 'bar',
+                data: jstotall_bath
+            },
+            {
+                name: '百货收入',
+                type: 'bar',
+                data: jstotall_store
+            },
+            {
+                name: '总收入',
+                type: 'bar',
+                data: jstotallS_bath_house_store_other
+            },
+            {
+                name: '支出',
+                type: 'bar',
+                data: jstotall_pay
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+{% endblock %}
+
+{% block class_chartIncome %}
+    active
+{% endblock %}
+
+
+

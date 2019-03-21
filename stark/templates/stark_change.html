@@ -1,0 +1,14 @@
+
+
+{% extends 'stark_base.html' %}
+{% block con %}
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/stark_add.css' %}">
+    <div class="weadmin-nav">
+        <span>编辑数据</span>
+    </div>
+    {% include 'stark_form.html' %}
+
+
+{% endblock %}

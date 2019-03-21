@@ -1,0 +1,77 @@
+{# 继承模板 #}
+{% extends 'admin_base.html' %}
+
+{#把这个页面塞到模版#}
+{% block page-main %}
+    <h1 class="page-header">清泉后台管理页面--支出</h1>
+
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">支出列表 <i class="fa fa-thumb-tack pull-right"></i></div>
+        <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">搜索</button>
+                                </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-md-3 pull-right">
+                    <a href="/adminAddexpense/" class="btn btn-success pull-right">新页面添加</a>
+                    <button class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">新增</button>
+                </div>
+
+            </div><!-- /.row -->
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>id</th>
+                    <th>支出类型</th>
+                    <th>资金</th>
+                    <th>日期</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in expensive_obj %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.id }}</td>
+                        <td>{{ i.expenCate }}</td>
+                        <td>{{ i.priceAccount }}</td>
+                        <td>{{ i.dayExpense }}</td>
+                        <td>{{ i.remarkAccount }}</td>
+                        <td>
+                            <a class="btn btn-danger" href="/adminDelexpen/?id={{ i.id }}">删除</a>
+                            <a class="btn btn-info" href="/adminEditexpen/?id={{ i.id }}">编辑</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center">暂时没有数据哦~</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation" class="text-right">
+                <ul class="pagination">
+                    {{ page_html|safe }}
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block class_expen %}
+    active
+{% endblock %}
+
+
+
