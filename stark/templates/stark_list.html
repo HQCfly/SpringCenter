@@ -1,0 +1,126 @@
+{% extends 'stark_base.html' %}
+{% block con %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stark_list.css' %}">
+    <style>
+
+    </style>
+
+        <!-- Default panel contents -->
+        {% if showlist.config.list_filter %}
+
+            <div class="panel panel-default" style="margin: 15px">
+                <div class="panel-heading">
+                    <i class="fa fa-filter" aria-hidden="true"></i> 快速筛选
+                </div>
+                <div class="panel-body">
+                    <div class="search-group">
+                        {% for filter_field,linktags in showlist.get_filter_linktags.items %}
+                            <div class="row">
+                                <button class="btn btn-default" style="border-color: white">By {{ filter_field.upper }}:</button>
+                                {% for link in linktags %}
+                                    <button class="btn btn-default navbar-btn">{{ link|safe }}</button>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+{#            {% for filter_field,linktags in showlist.get_filter_linktags.items %}#}
+{#                <div class="panel-heading">#}
+{#                    <i>By {{ filter_field.upper }}</i>#}
+{#                    {% for link in linktags %}#}
+{#                        <button class="btn btn-info" style="color: white">{{ link|safe }}</button>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            {% endfor %}#}
+
+
+
+        {% endif %}
+    <div class="weadmin-nav">
+
+        <button class="layui-btn " style="float:right;background-color: #337ab7"><a
+                style="line-height:1.6em;margin-top:3px;float:right;color:white;" href="{{ add_url }}">添加</a></button>
+
+    </div>
+    <div class="weadmin-body">
+        <div>
+            {% if showlist.config.search_fields %}
+                <form action="" class="pull-right">
+                    <div class="form-group" style="width: 400px;float: right">
+                        <input type="text" name="q" class="form-control" placeholder="Search"
+                               style="width: 60%;float: right" value="{{ showlist.config.key_word }}">
+                        <button type="submit" class="btn btn-default"
+                                style="float:right;color: white;margin-right: 3px; background-color:#337ab7;border-color: #337ab7">
+                            Search
+                        </button>
+                    </div>
+                </form>
+
+            {% endif %}
+        </div>
+        {#        <div class="weadmin-block">#}
+        {##}
+        {##}
+        {#            <button class="layui-btn layui-btn-danger" onclick="delAll()">批量删除</button>#}
+        {#            #}
+        {##}
+        {#        </div>#}
+        <form action="" method="post">
+            {% csrf_token %}
+            <select name="action" style="width: 200px;padding: 5px 8px;display: inline-block;height: 35px">
+                {% for item in showlist.get_action_list %}
+                    <option value="">---------------</option>
+                    <option value="{{ item.name }}">{{ item.desc }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-info" style="background-color:#337ab7;border-color: #337ab7">Go
+            </button>
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    {% for item in showlist.get_header %}
+                        <th>{{ item }}</th>
+                    {% endfor %}
+                </tr>
+
+                </thead>
+                <tbody>
+                {% for data in showlist.get_body %}
+
+                    <tr>
+                        {% for item in data %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+            <nav class="pull-right">
+                <ul class="pagination">
+                    {{ showlist.pagination.page_html|safe }}
+                </ul>
+            </nav>
+        </form>
+
+    </div>
+    <script>
+
+        $("#choice").click(function () {
+
+            if ($(this).prop("checked")) {
+                $(".choice_item").prop("checked", true)
+            } else {
+                $(".choice_item").prop("checked", false)
+            }
+
+        })
+
+    </script>
+
+{% endblock %}

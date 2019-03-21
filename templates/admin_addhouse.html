@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://v3.bootcss.com/examples/dashboard/ -->
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+    <title>添加房间</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/fontawesome/css/font-awesome.min.css">
+</head>
+<body>
+{% include 'admin_nav.html' %}
+<div class="container" style="margin-top:70px">
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <div class="panel panel-primary" style="width: 700px">
+                <div class="panel-heading">添加房间</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/adminAddhouse/" method="post">
+                        <div class="form-group">
+                            <label for="book_title" class="col-sm-2 control-label">客人名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="house_name" name="house_name"
+                                       placeholder="客人名称">
+                            </div>
+                            <label for="book_title" class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="house_sex" name="house_sex"
+                                       placeholder="性别">
+                            </div>
+                            <label for="book_title" class="col-sm-2 control-label">身份证</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="house_id" name="house_id"
+                                       placeholder="身份证">
+                            </div>
+                            <label for="book_title" class="col-sm-2 control-label">房间类型</label>
+                            <div class="col-sm-10">
+                                 <select class="form-control" name="cata_list">
+                                    {% for catalist in cata_list %}
+                                        <option id="cata_select" value="{{ catalist.id }}">{{ catalist.houseName }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                            <label for="book_title" class="col-sm-2 control-label">房间号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="house_num" name="house_num"
+                                       placeholder="房间号">
+                            </div>
+                            <label for="book_title" class="col-sm-2 control-label">住房时间</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="house_time" name="house_time"
+                                       placeholder="住房时间">
+                            </div>
+                            <label for="book_title" class="col-sm-2 control-label">价格</label>
+                            <div class="col-sm-10">
+{#                                {% if catalist.houseName == '单间' %}#}
+{#                                    <input type="text" class="form-control" name="house_price" placeholder="价格" value="80">#}
+{#                                {% elif catalist.houseName == '标间' %}#}
+{#                                    <input type="text" class="form-control" name="house_price" placeholder="价格" value="100">#}
+{#                                {% elif catalist.houseName == '三人间' %}#}
+{#                                    <input type="text" class="form-control" name="house_price" placeholder="价格" value="100">#}
+{#                                {% elif catalist.houseName == '娱乐室' %}#}
+{#                                    <input type="text" class="form-control" name="house_price" placeholder="价格" value="160">#}
+{#                                {% else %}#}
+{#                                    <input type="text" class="form-control" name="house_price" placeholder="价格" value="0">#}
+{#                                {% endif %}#}
+                                <input type="text" class="form-control" id="house_price" name="house_price"
+                                       placeholder="价格">
+                            </div>
+                            <label for="book_title" class="col-sm-2 control-label">日期</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="dayTime" name="dayTime"
+                                       placeholder="日期">
+                            </div>
+
+                            <label for="book_title" class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="house_remark" name="house_remark"
+                                       placeholder="备注" value="1">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+ {% load static %}
+<script src="{% static 'laydate/laydate.js' %}"></script>
+<script>
+    laydate.render({
+  elem: '#dayTime'
+});
+
+
+</script>
+</body>
+</html>
